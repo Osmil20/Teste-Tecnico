@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel ANS</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="app" class="container mx-auto p-4">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-blue-800">Visualizador de Despesas ANS</h1>
+        </header>
+
+        <div class="bg-white p-4 rounded shadow mb-8">
+            <div class="flex gap-4 mb-4">
+                <input v-model="search" @keyup.enter="fetchData" type="text" placeholder="Buscar..." class="flex-1 p-2 border rounded">
+                <button @click="fetchData" class="bg-blue-600 text-white px-4 py-2 rounded">Buscar</button>
+            </div>
+
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-2 border">CNPJ</th>
+                        <th class="p-2 border">Razão Social</th>
+                        <th class="p-2 border">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="op in operadoras" :key="op.CNPJ">
+                        <td class="p-2 border">{{ op.CNPJ }}</td>
+                        <td class="p-2 border">{{ op.RazaoSocial }}</td>
+                        <td class="p-2 border">
+                            <button @click="showDetails(op)" class="text-blue-600">Ver Detalhes</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-4 flex justify-between items-center">
+                <span>Página {{ page }} de {{ totalPages }}</span>
+                <div class="flex gap-2">
+                    <button @click="changePage(-1)" :disabled="page === 1" class="px-3 py-1 bg-gray-200 rounded">Anterior</button>
+                    <button @click="changePage(1)" :disabled="page === totalPages" class="px-3 py-1 bg-gray-200 rounded">Próxima</button>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="selectedOp" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div class="bg-white p-6 rounded-lg w-full max-w-4xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">{{ selectedOp.RazaoSocial }}</h2>
+                    <button @click="selectedOp = null" class="text-2xl">&times;</button>
+                </div>
+                <div class="h-64">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
