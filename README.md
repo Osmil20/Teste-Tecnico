@@ -1,17 +1,49 @@
-# Teste Tecnico - Intuitive Care
+Teste Técnico 
 
-Projeto desenvolvido para o processo seletivo de estagio. O sistema realiza a coleta, processamento e visualizacao de dados de despesas da ANS.
+Projeto desenvolvido com foco em integração de dados, processamento, análise e visualização de despesas da ANS.
 
-## Estrutura
-- `src/`: Codigo fonte com a logica de integracao e processamento.
-- `scripts/`: Scripts para rodar as etapas do teste.
-- `data/`: Pasta para armazenamento dos arquivos CSV e ZIP (gerada automaticamente).
-- `sql/`: Scripts de criacao e consulta ao banco de dados.
-- `api/`: Backend (FastAPI) e Frontend (Vue.js).
+📌 O que foi implementado
 
-## Como rodar
-1. Instale as dependencias: `pip install -r api/backend/requirements.txt`
-2. Gere os dados iniciais: `python scripts/seed_demo_data.py`
-3. Rode o processamento: `python scripts/run_teste2.py`
-4. Para o banco, execute os arquivos na pasta `sql/` no seu cliente Postgres.
-5. Para a web, rode o backend com `uvicorn api.backend.main:app` e abra o `index.html` na pasta `api/frontend` no navegador.
+Integração com a API pública da ANS
+Download e extração automática de arquivos (ZIP, CSV, TXT, XLSX)
+Normalização e consolidação dos dados dos últimos 3 trimestres
+Tratamento de inconsistências (CNPJ, valores inválidos, formatos divergentes)
+Validação e enriquecimento com dados cadastrais das operadoras
+Agregações estatísticas (total, média e desvio padrão)
+Persistência e análise em banco PostgreSQL
+Queries analíticas conforme solicitado no teste
+API REST para exposição dos dados
+Interface web simples para visualização
+
+📁 Estrutura do Projeto
+.
+├── src/        # Processamento, validação e análise dos dados
+├── scripts/    # Execução das etapas do teste
+├── data/       # Arquivos CSV e ZIP gerados automaticamente
+├── sql/        # DDL, carga e queries analíticas
+└── api/
+    ├── backend/   # API REST (FastAPI)
+    └── frontend/  # Interface web (Vue.js)
+
+🚀 Como Executar
+pip install -r api/backend/requirements.txt
+python scripts/seed_demo_data.py
+python scripts/run_teste2.py
+uvicorn api.backend.main:app --reload
+
+
+Frontend:
+api/frontend/index.html
+
+🛠 Tecnologias
+Python
+FastAPI
+PostgreSQL
+Vue.js
+SQL
+
+📄 Observações
+
+A pasta data/ é criada automaticamente
+As decisões técnicas e trade-offs foram aplicados conforme solicitado no enunciado do teste
+O projeto prioriza simplicidade, clareza e execução funcional
